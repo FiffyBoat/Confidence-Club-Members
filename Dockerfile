@@ -8,17 +8,16 @@ RUN npm run build
 
 FROM composer:2.7 AS vendor
 WORKDIR /app
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        libpq-dev \
+RUN apk add --no-cache \
+        $PHPIZE_DEPS \
+        icu-dev \
         libzip-dev \
         libpng-dev \
-        libjpeg62-turbo-dev \
-        libfreetype6-dev \
-        libicu-dev \
+        libjpeg-turbo-dev \
+        freetype-dev \
+        postgresql-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_pgsql pgsql zip gd bcmath intl \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-install pdo_pgsql pgsql zip gd bcmath intl
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --prefer-dist --no-progress --no-interaction --no-scripts
 
