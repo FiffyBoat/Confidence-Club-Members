@@ -14,8 +14,8 @@ return new class extends Migration
        Schema::create('invoices', function (Blueprint $table) {
     $table->id();
     $table->string('invoice_number')->unique();
-    $table->foreignId('payer_id')->constrained()->cascadeOnDelete();
-    $table->foreignId('revenue_type_id')->constrained()->cascadeOnDelete();
+    $table->unsignedBigInteger('payer_id')->index();
+    $table->unsignedBigInteger('revenue_type_id')->index();
     $table->decimal('amount', 12, 2);
     $table->date('due_date');
     $table->enum('status',['unpaid','partial','paid'])->default('unpaid');

@@ -21,6 +21,7 @@ This repo includes a `Dockerfile` and `render.yaml` for one‑click deployment u
    - a PostgreSQL database (`ccm-db`)
 4. In the Render dashboard, set:
    - `APP_URL` to your real Render URL (example: `https://ccm-app.onrender.com`)
+   - `APP_KEY` (generate locally using `php artisan key:generate --show`)
    - `RECEIPTS_DISK=s3`
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY`
