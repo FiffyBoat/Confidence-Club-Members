@@ -42,6 +42,7 @@ php artisan db:seed
 - Receipt PDFs are stored on S3 when `RECEIPTS_DISK=s3`.
 - `SESSION_SECURE_COOKIE=true` is set to keep cookies HTTPS-only in production.
 - HTTPS is forced automatically when `APP_URL` starts with `https://`.
+- Render uses `/health` for the service health check.
 
 ## Local Setup (Optional)
 ```
