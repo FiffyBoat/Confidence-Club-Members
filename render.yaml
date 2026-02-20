@@ -1,0 +1,56 @@
+databases:
+  - name: ccm-db
+    plan: free
+    databaseName: ccm_db
+    user: ccm_user
+
+services:
+  - type: web
+    name: ccm-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://ccm-app.onrender.com
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: RECEIPTS_DISK
+        value: s3
+      - key: SESSION_SECURE_COOKIE
+        value: true
+      - key: DB_HOST
+        fromDatabase:
+          name: ccm-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ccm-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: ccm-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ccm-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ccm-db
+          property: password
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
