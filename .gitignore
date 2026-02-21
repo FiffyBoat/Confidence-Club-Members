@@ -19,6 +19,9 @@
 /storage/*.key
 /storage/pail
 /vendor
+/ccm_db
+/ccm_db_empty
+/database/database.sqlite
 Homestead.json
 Homestead.yaml
 Thumbs.db
