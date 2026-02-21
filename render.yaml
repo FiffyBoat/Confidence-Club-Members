@@ -1,7 +1,7 @@
 databases:
   - name: ccm-db
     plan: free
-    databaseName: ccm_db
+    databaseName: ccm_db_empty
     user: ccm_user
 
 services:
