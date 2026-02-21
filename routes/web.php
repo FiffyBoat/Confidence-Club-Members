@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BirthdayController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HealthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\ProfileController;
@@ -25,7 +24,6 @@ use App\Http\Controllers\Transparency\TransparencyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class);
-Route::get('/health', HealthController::class);
 
 Route::get('/transparency', [TransparencyController::class, 'index'])->name('transparency');
 
