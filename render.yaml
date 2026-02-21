@@ -6,7 +6,7 @@ databases:
 
 services:
   - type: web
-    name: ccm-app
+    name: confidence-club-members-app
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
@@ -17,7 +17,7 @@ services:
       - key: APP_DEBUG
         value: false
       - key: APP_URL
-        value: https://ccm-app.onrender.com
+        value: https://confidence-club-members-app.onrender.com
       - key: LOG_CHANNEL
         value: stderr
       - key: DB_CONNECTION
