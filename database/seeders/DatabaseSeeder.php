@@ -16,37 +16,60 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+        $accounts = [
             [
-                'name' => 'System Admin',
-                'phone' => '0240000000',
                 'role' => 'admin',
-                'is_active' => true,
-                'password' => Hash::make('admin12345'),
-            ]
-        );
-
-        User::updateOrCreate(
-            ['email' => 'treasurer@example.com'],
+                'email' => 'bphocuz@gmail.com',
+                'name' => 'System Admin',
+                'phone' => '0247867355',
+                'password' => 'admin@123',
+            ],
             [
-                'name' => 'Head Treasurer',
-                'phone' => '0240000001',
                 'role' => 'treasurer',
-                'is_active' => true,
-                'password' => Hash::make('treasurer12345'),
-            ]
-        );
-
-        User::updateOrCreate(
-            ['email' => 'viewer@example.com'],
+                'email' => 'roseboateng@gmail.com',
+                'name' => 'Rose Boateng',
+                'phone' => '0208165378',
+                'password' => 'Rose@12345',
+            ],
             [
+                'role' => 'viewer',
+                'email' => 'viewer@gmail.com',
                 'name' => 'Transparency Viewer',
                 'phone' => '0240000002',
-                'role' => 'viewer',
-                'is_active' => true,
-                'password' => Hash::make('viewer12345'),
-            ]
-        );
+                'password' => 'viewer12345',
+            ],
+        ];
+
+        $keepIds = [];
+        foreach ($accounts as $account) {
+            $roleUser = User::where('role', $account['role'])->first();
+            $emailUser = User::where('email', $account['email'])->first();
+
+            if ($roleUser && $emailUser && $roleUser->id !== $emailUser->id) {
+                $emailUser->delete();
+            }
+
+            if (! $roleUser && $emailUser) {
+                $roleUser = $emailUser;
+            }
+
+            if (! $roleUser) {
+                $roleUser = new User();
+            }
+
+            $roleUser->name = $account['name'];
+            $roleUser->email = $account['email'];
+            $roleUser->phone = $account['phone'];
+            $roleUser->role = $account['role'];
+            $roleUser->is_active = true;
+            $roleUser->password = Hash::make($account['password']);
+            $roleUser->save();
+
+            $user = $roleUser;
+
+            $keepIds[] = $user->id;
+        }
+
+        User::whereNotIn('id', $keepIds)->delete();
     }
 }
